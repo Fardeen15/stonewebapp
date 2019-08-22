@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { auth } from '../firebaseconfig';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect,withRouter } from "react-router-dom";
 class SignIN extends Component {
 
     constructor(props) {
@@ -39,19 +39,16 @@ class SignIN extends Component {
             })
         }
     }
-    componentWillMount() {
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                console.log(this.props.history)
+    // componentWillMount() {
+    //     auth.onAuthStateChanged((user) => {
+    //         if (user) {
+    //             console.log(this.props.history)
 
-                // history.push('/MainPage')
-                return (
-                    <Redirect to="/MainPage" />
-
-                )
-            }
-        })
-    }
+    //             this.props.history.push('/MainPage')
+                
+    //         }
+    //     })
+    // }
 
     render() {
         return (
@@ -69,7 +66,10 @@ class SignIN extends Component {
 
                     </div>
                     <button type="submit" className="btn btn-primary btn-block">Submit</button><br/>
-                    <Link to="/SignUp"><button className="btn btn-secondary btn-block" onClick={this.props.signup}>sign Up</button></Link>
+                    <Link to="/SignUp"><button className="btn btn-secondary btn-block" onClick={()=>{
+                        this.props.signup()
+                    
+                        }}>sign Up</button></Link>
 
                 </form>
             </div>
@@ -79,4 +79,4 @@ class SignIN extends Component {
         )
     }
 }
-export default SignIN
+export default withRouter(SignIN)

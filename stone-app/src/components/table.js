@@ -11,7 +11,6 @@ class Table extends React.Component {
     }
     componentWillMount(){
         // if(this.props.value){
-            console.log(this.props.history)
             // this.props.history.push('/MainPage')
         // }
     }

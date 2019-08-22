@@ -652,9 +652,7 @@ class Form extends React.Component {
   }
   gotoSignIn = () => {
     this.setState({
-      SignIn: true,
-      signup: false,
-      mainPage: false
+     auth : false
     })
 
   }
@@ -662,11 +660,10 @@ class Form extends React.Component {
     // this.props.history.push('/')
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(this.state.auth)
         this.setState(
           {
-            auth: true
-          }
+            auth: true,
+          }, () => console.log(this.state.auth)
         )
       }
     })
@@ -684,7 +681,7 @@ class Form extends React.Component {
     })
     auth.signOut().then(() => {
       this.setState({
-        
+
         mainPage: false,
         SignIn: true,
         // enteries: [],
@@ -733,9 +730,10 @@ class Form extends React.Component {
     })
   }
   render() {
-    console.log(this.props, this.state)
     return (
       <Router>
+
+        {/* { */}
         {this.state.auth ?
           <div>
             {/* {
@@ -748,8 +746,6 @@ class Form extends React.Component {
                   this.state.auth ?
                     <Redirect to="/MainPage" />
                     :
-
-
                     <SignIN
                       mainPage={this.gotoMainPage}
                       signup={this.gotoSignup}
@@ -799,15 +795,15 @@ class Form extends React.Component {
             this.state.mainPage ? */}
             <Route
               path="/MainPage"
-
               render={() => {
                 return (
-
-                  <MainPage
-                    data={this.data}
-                    changePage={this.changePage}
-                    signOut={this.signOut}
-                  />
+                  this.state.auth ?
+                    <MainPage
+                      data={this.data}
+                      changePage={this.changePage}
+                      signOut={this.signOut}
+                    /> :
+                    <Redirect to="/" />
                 )
               }}
             />
@@ -1071,26 +1067,34 @@ class Form extends React.Component {
               handleClose={this.handleClose3}
             />
           </div >
-          :
-          <Route
-            path="/"
-            exact
-            render={() => {
-              return (
-                this.state.auth ?
-                  <Redirect to="/MainPage" />
-                  :
+          : <div>
+            <Route
+              path="/SignUp"
+              render={() => {
+                return (
 
-
+                  <Signup
+                    SignIN={this.gotoSignIn}
+                    signOut={this.signOut}
+                  />
+                )
+              }}
+            />
+            <Route
+              path="/"
+              exact
+              render={() => {
+                return (
                   <SignIN
                     mainPage={this.gotoMainPage}
                     signup={this.gotoSignup}
                     state={this.state}
                   />
-              )
-            }}
-          /> 
-          }
+                )
+              }}
+            />
+          </div>
+        }
       </Router>
 
     );

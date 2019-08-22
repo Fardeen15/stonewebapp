@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import React from 'react';
 import { db, auth } from '../firebaseconfig';
-
+import { BrowserRouter as Router, Route, Link,withRouter } from "react-router-dom";
 class MyVerticallyCenteredModal extends React.Component {
     totalprice = () => {
 
@@ -96,7 +96,9 @@ class MyVerticallyCenteredModal extends React.Component {
                             // document.getElementById('table1').style.display = 'none'
                             // document.getElementById('table').style.display = 'inline-block'
                             console.log()
-                            db.ref().child(user.uid).child('data').child(name).remove()
+                            db.ref().child(user.uid).child('data').child(name).remove().then(()=>{
+                                this.props.history.push('/viewCustomers')
+                            })
                         })
 
 
@@ -133,4 +135,4 @@ class MyVerticallyCenteredModal extends React.Component {
     }
 }
 
-export default MyVerticallyCenteredModal
+export default withRouter(MyVerticallyCenteredModal)

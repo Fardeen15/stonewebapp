@@ -11,7 +11,7 @@ class List extends React.Component {
     }
     componentWillMount() {
         this.props.total()
-        console.log(this.props.khata)
+        console.log(this.props.value)
     }
     
     render() {

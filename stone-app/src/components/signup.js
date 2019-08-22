@@ -35,11 +35,11 @@ class Signup extends Component {
                 db.ref().child(res.user.uid).child('personal Information').set(obj)
                 auth.signOut().then(() => {
                     console.log(this.props)
+                    this.props.SignIN()
                     this.props.history.push('/')
                     // return(
                     //     <Redirect to = "/"/>
                     // )
-                    // this.props.SignIN()
                 })
             })
             .catch(function (error) {

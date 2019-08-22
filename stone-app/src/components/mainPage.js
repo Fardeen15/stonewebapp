@@ -13,7 +13,7 @@ class MainPage extends Component {
     componentWillMount(){
         auth.onAuthStateChanged((user)=>{
             if(user){
-                console.log(true)
+                // console.log(true)
                 db.ref().child(user.uid).child("personal Information").on("value",(snap)=>{
                     var data = snap.val()
                     this.setState({
@@ -25,7 +25,7 @@ class MainPage extends Component {
         })
     }
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div id="mainDiv">
                 <h1>Main DashBoard </h1>

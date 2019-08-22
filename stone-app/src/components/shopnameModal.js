@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import React from 'react';
 import { db, auth } from '../firebaseconfig';
 import Select from 'react-select'
-import { BrowserRouter as Router, Route, Link , Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link , Redirect,withRouter } from "react-router-dom";
 
 
 
@@ -53,7 +53,7 @@ class MyVerticallyCenteredModal2 extends React.Component {
     
     componentWillMount() {
         this.data()
-       
+       this.props.history.push('/')
     }
 
     render() {
@@ -132,4 +132,4 @@ class MyVerticallyCenteredModal2 extends React.Component {
     }
 }
 
-export default MyVerticallyCenteredModal2
+export default withRouter(MyVerticallyCenteredModal2)
