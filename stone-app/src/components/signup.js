@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { auth } from '../firebaseconfig';
 import { db } from '../firebaseconfig';
 // import '../all.css';
-import { BrowserRouter as Router, Route, Link,Redirect ,withRouter} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from "react-router-dom";
 
 class Signup extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class Signup extends Component {
         event.preventDefault();
         var email = document.getElementById('signUpEmail').value;
         var password = document.getElementById('signUpPassword').value;
-        var conformPassword = document.getElementById('conformPassword').value;
+        var number = document.getElementById('number').value;
         var fname = document.getElementById('fname').value;
         var lname = document.getElementById('lname').value;
         // this.setState({
@@ -26,32 +26,41 @@ class Signup extends Component {
             fname: fname,
             lname: lname,
             email: email,
-            password: password,
-            conformPassword: conformPassword
+            // password: password,
+            number: number
         }
         // })
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((res) => {
-                db.ref().child(res.user.uid).child('personal Information').set(obj)
-                auth.signOut().then(() => {
-                    console.log(this.props)
-                    this.props.SignIN()
-                    this.props.history.push('/')
-                    // return(
-                    //     <Redirect to = "/"/>
-                    // )
+        if (number.length === 11) {
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((res) => {
+                    db.ref().child(res.user.uid).child('personal Information').set(obj)
+                    auth.signOut().then(() => {
+                        console.log(this.props)
+                        this.props.SignIN()
+                        this.props.history.push('/')
+                        // return(
+                        //     <Redirect to = "/"/>
+                        // )
+                    })
                 })
-            })
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                alert(errorMessage);
-                // ...
-            });
-        document.getElementById('signUpEmail').value = "";
-        document.getElementById('signUpPassword').value = "";
-        document.getElementById('conformPassword').value = "";
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                    // ...
+                });
+            document.getElementById('number').value = ""
+            document.getElementById('fname').value = ""
+            document.getElementById('lname').value = ""
+            document.getElementById('signUpEmail').value = "";
+            document.getElementById('signUpPassword').value = "";
+            document.getElementById('conformPassword').value = "";
+        } else {
+            alert('plzz check number character')
+        }
+
     }
     password = (ev) => {
         var pass = document.getElementById('signUpPassword').value;
@@ -106,6 +115,9 @@ class Signup extends Component {
 
                     <div className="form-group">
                         <input required type="email" id="signUpEmail" className="form-control" aria-describedby="emailHelp" placeholder="Enter email" />
+                    </div>
+                    <div className="form-group">
+                        <input required type="number" id="number" className="form-control" placeholder="Enter Number" />
                     </div>
                     <div className="form-group">
                         <input required type={`${this.state.show ? "text" : "password"}`} placeholder="Password" id="signUpPassword" className="form-control" />

@@ -10,9 +10,8 @@ class Table extends React.Component {
         }
     }
     componentWillMount(){
-        // if(this.props.value){
-            // this.props.history.push('/MainPage')
-        // }
+        // this.props.data(this.props.value)
+        // console.log(true)
     }
 
     render() {

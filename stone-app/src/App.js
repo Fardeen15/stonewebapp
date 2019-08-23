@@ -356,14 +356,26 @@ class Form extends React.Component {
     }
   }
   handleClose6 = (addmore) => {
-    this.setState({
-      printModaL: false,
-      print2: false,
-      enteries: [],
-      viewentry: false,
-      mainPage: true,
-      selectedShopname: ""
-    })
+    if(addmore === "addmore"){
+
+      this.setState({
+        printModaL: false,
+        print2: false,
+        // enteries: [],
+        // viewentry: false,
+        // mainPage: true,
+        // selectedShopname: ""
+      })
+    }else{
+      this.setState({
+        printModaL: false,
+        print2: false,
+        enteries: [],
+        viewentry: false,
+        mainPage: true,
+        selectedShopname: ""
+      })
+    }
   }
 
   handleShow5 = (ev) => {
@@ -477,6 +489,10 @@ class Form extends React.Component {
                 for (var i = 0; i < data.length; i++) {
                   console.log(this.state.baldata)
                   if (data[i] === name && this.state.baldata.length) {
+                    // db.ref().child(user.uid).child('data').child(name).on("value",(snap)=>{
+                    //   var data = Object.values(snap.val())
+                    //   for(var i ){}
+                    // })
                     setTimeout(() => {
                       auth.onAuthStateChanged((user) => {
                         if (user) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { db, auth } from '../firebaseconfig';
 import Badge from 'react-bootstrap/Badge'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 class FormList extends React.Component {
   constructor() {
@@ -31,19 +31,21 @@ class FormList extends React.Component {
   componentWillMount() {
     // this.data()
     this.stone()
+    // if(this.props.edit){
+    // }
   }
   render() {
     return (
       <div className="Form" id="form">
 
         <div id="addbtn2">
-          
-          {!this.props.edit?
-          <Link to="/MainPage"><button type="button" className="btn btn-secondary btn-circle2 btn-xl2" onClick={this.props.gotoMain}><i className="fas fa-arrow-left addicon"></i>
-          </button></Link>
-         
-          :<Link to="/Enteries"><button type="button" className="btn btn-secondary btn-circle2 btn-xl2" ><i className="fas fa-arrow-left addicon"></i>
-          </button></Link>
+
+          {!this.props.edit ?
+            <Link to="/MainPage"><button type="button" className="btn btn-secondary btn-circle2 btn-xl2" onClick={this.props.gotoMain}><i className="fas fa-arrow-left addicon"></i>
+            </button></Link>
+
+            : <Link to="/Enteries"><button type="button" className="btn btn-secondary btn-circle2 btn-xl2" ><i className="fas fa-arrow-left addicon"></i>
+            </button></Link>
           }
         </div>
         {this.props.edit ?
@@ -105,12 +107,12 @@ class FormList extends React.Component {
               }
               }>submit</button>
             </div>
-            <Link to = "/Entries"><div className="input-group mb-3 select" >
+            <Link to="/Entries"><div className="input-group mb-3 select" >
               {/* <div id="addbtn2" className="btn btn-secondary btn-circle3 btn-xl3">
             <h1>1</h1>
           </div> */}
 
-             <button data-badge={this.props.entries.length} disabled={!this.props.entries.length} type="button" className="btn btn-secondary d-block  badge-notification" id="customer" onClick={() => {
+              <button data-badge={this.props.entries.length} disabled={!this.props.entries.length} type="button" className="btn btn-secondary d-block  badge-notification" id="customer" onClick={() => {
                 this.props.viewentry()
               }}>
                 View Entires
@@ -127,7 +129,11 @@ class FormList extends React.Component {
               : null}
           </div>
           : <div className="input-group mb-3 select" >
-            <button type="button" className="btn btn-secondary" id="customer" onClick={() => this.props.update()} >
+            <button type="button" className="btn btn-secondary" id="customer" onClick={() => {
+              this.props.history.push('/Entries')
+
+              this.props.update()
+            }} >
               Update
         </button>
           </div>}
@@ -136,4 +142,4 @@ class FormList extends React.Component {
   }
 }
 
-export default FormList
+export default withRouter(FormList)

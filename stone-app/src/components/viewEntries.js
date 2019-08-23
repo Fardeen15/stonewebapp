@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link , withRouter} from "react-router-dom";
 class ViewEntires extends Component {
 
     render() {
@@ -44,6 +44,7 @@ class ViewEntires extends Component {
                                         <td>{value.totalprice}</td>
                                         <td>
                                             <i className="far fa-edit icon" onClick={(ev) => {
+                                                      this.props.history.push('/Form')
                                                 this.props.edit(this.props.data, index)
                                             }}> </i>
                                         </td>
@@ -62,4 +63,4 @@ class ViewEntires extends Component {
         )
     }
 }
-export default ViewEntires
+export default withRouter( ViewEntires)

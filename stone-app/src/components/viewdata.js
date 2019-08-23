@@ -18,7 +18,7 @@ class List extends React.Component {
         return (
             // this.props.value ?
             <tbody>
-                {!this.props.value.stone && !this.props.value.balance ?
+                {!this.props.value.stone && !this.props.value.balance && !this.props.value.total?
                     <tr>    
                         <td>{this.props.index + 1}</td>
                         <td>-</td>
@@ -41,7 +41,7 @@ class List extends React.Component {
                         <td>{this.props.value.totalprice}</td>
                         <td></td>
                     </tr >
-                    : this.props.value.balance ?
+                    : this.props.value.total ?
                         <tr>
                             <td>{this.props.index + 1}</td>
                             <td>-</td>
@@ -51,7 +51,7 @@ class List extends React.Component {
                         :<td>(cash received)</td>}
                             
                             <td>-</td>
-                           
+                            <td>-</td>
                             <td>
                                 {this.props.value.totalprice}
                                 
